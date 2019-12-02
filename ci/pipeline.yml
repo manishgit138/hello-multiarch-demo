@@ -67,7 +67,8 @@ jobs:
       - get: git
         trigger: true
       - put: edge
-        params: { build: git }
+        params:
+          build: git
         on_failure:
           put: notify
           params:
@@ -94,7 +95,6 @@ jobs:
     plan:
       - aggregate:
           - { get: version }
-          - { get: edge, passed: [build], params: { save: true } }
           - { get: git,  passed: [build] }
 
       - task: release
@@ -124,13 +124,13 @@ jobs:
 
       - put: latest # as 'latest'
         params:
-          load:       edge
+          build: git
 
       - put: latest # as 'vX.Y.Z'
         params:
-          tag:             version/number
-          tag_prefix:      v
-          load:       edge
+          tag:        version/number
+          tag_prefix: v
+          build:      git
 
       - put: version
         params:
@@ -173,7 +173,7 @@ resources:
       tag: edge
 
   - name: latest
-    type: docker-image
+    type: docker-buildx
     source:
       .: (( inject meta.dockerhub ))
       tag: latest

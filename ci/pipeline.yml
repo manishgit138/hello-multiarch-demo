@@ -100,7 +100,7 @@ jobs:
       - task: release
         config:
           image_resource:
-            type: docker-image
+            type: docker-buildx
             source:
               repository: (( grab meta.image ))
           platform: linux
@@ -151,6 +151,13 @@ resource_types:
     source:
       repository: cfcommunity/slack-notification-resource
 
+  - name: docker-buildx
+    type: docker-image
+    privileged: true
+    source:
+      repository: starkandwayne/docker-buildx-resource
+      tag: latest
+
 resources:
   - name: git
     type: git
@@ -160,13 +167,13 @@ resources:
       private_key: (( grab meta.github.private_key ))
 
   - name: edge
-    type: docker-image
+    type: docker-buildx
     source:
       .: (( inject meta.dockerhub ))
       tag: edge
 
   - name: latest
-    type: docker-image
+    type: docker-buildx
     source:
       .: (( inject meta.dockerhub ))
       tag: latest

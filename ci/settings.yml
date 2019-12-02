@@ -1,7 +1,7 @@
 ---
 meta:
   name:    hello-multiarch-demo
-  target:  ohio-cf
+  target:  ohio-sw
   url:     https://ci2.starkandwayne.com
 
   initial_version: 1.0.0

@@ -1,8 +1,11 @@
-FROM --platform=$BUILDPLATFORM golang:alpine AS build
-ARG TARGETPLATFORM
-ARG BUILDPLATFORM
-RUN echo "I was built on a platform running on $BUILDPLATFORM, building this image for $TARGETPLATFORM" > /log
+FROM golang:alpine AS build
+ADD . /buildspace
+WORKDIR /buildspace
+RUN \
+  go build -o buildx-demo ./...
 
-FROM alpine
-COPY --from=build /log /log
-CMD [ "cat", "/log" ]
+FROM alpine AS app
+COPY --from=build /buildspace/buildx-demo /usr/bin/buildx-demo
+CMD [ "/usr/bin/buildx-demo" ]
+
+FROM app

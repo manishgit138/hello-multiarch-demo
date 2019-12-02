@@ -173,7 +173,7 @@ resources:
       tag: edge
 
   - name: latest
-    type: docker-buildx
+    type: docker-image
     source:
       .: (( inject meta.dockerhub ))
       tag: latest

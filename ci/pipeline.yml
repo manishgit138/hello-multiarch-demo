@@ -100,7 +100,7 @@ jobs:
       - task: release
         config:
           image_resource:
-            type: docker-buildx
+            type: docker-image
             source:
               repository: (( grab meta.image ))
           platform: linux

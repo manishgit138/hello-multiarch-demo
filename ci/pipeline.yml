@@ -69,6 +69,8 @@ jobs:
       - put: edge
         params:
           build: git
+          # buildx_platforms: "linux/amd64,linux/arm64,linux/arm/v7,linux/arm/v6"
+          buildx_platforms: "linux/amd64,linux/arm/v7"
         on_failure:
           put: notify
           params:
@@ -156,7 +158,7 @@ resource_types:
     privileged: true
     source:
       repository: starkandwayne/docker-buildx-resource
-      tag: latest
+      tag: edge
 
 resources:
   - name: git

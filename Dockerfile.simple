@@ -1,4 +1,4 @@
-FROM --platform=$BUILDPLATFORM golang:alpine AS build
+FROM golang:alpine AS build
 ARG TARGETPLATFORM
 ARG BUILDPLATFORM
 RUN echo "I was built on a platform running on $BUILDPLATFORM, building this image for $TARGETPLATFORM" > /log

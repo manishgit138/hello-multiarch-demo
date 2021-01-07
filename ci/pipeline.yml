@@ -183,13 +183,11 @@ resources:
   - name: version
     type: semver
     source :
-      driver:            s3
-      bucket:            (( grab meta.aws.bucket ))
-      region_name:       (( grab meta.aws.region_name ))
-      key:               version
-      access_key_id:     (( grab meta.aws.access_key ))
-      secret_access_key: (( grab meta.aws.secret_key ))
-      initial_version:   (( grab meta.initial_version || "0.0.1" ))
+      driver:            git
+      initial_version: 1.0.0-rc.0
+      uri: {{git-uri-semver}}
+      branch: version
+      file: version
 
   - name: notify
     type: slack-notification
